@@ -13,15 +13,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBWtne2ZJaL4vd96Y0TV9SGLmdWEhurH8I"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="com.duling.GPSTracker.LOCATION_READY" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service android:name=".LocationService" />
+        <receiver android:name=".LocationReceiver">
+            <intent-filter>
+                <action android:name="com.duling.GPSTracker.NEW_LOCATION_RECEIVED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="duling.DulingActivityRecognition" />
+        <service android:name="duling.DulingDelayedTask" android:exported="false">
+            <intent-filter>
+                <action android:name="DulingActivityRecognition" />
+                <action android:name="DulingLocationService" />
+            </intent-filter>
+        </service>
 
     </application>
 
